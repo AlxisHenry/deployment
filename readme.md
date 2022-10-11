@@ -3,13 +3,13 @@
 ### **Cloner le projet**
 
 ```
-git@github.com:AlxisHenry/project-managment.git my-server
+git@github.com:AlxisHenry/manage-my-projects.git
 ```
 
 ### **Se rendre dans le dossier du projet**
 
 ```bash
-cd my-server
+cd manage-my-projects
 ```
 
 ### **Lancer le script de mise en place du projet**

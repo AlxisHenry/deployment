@@ -8,6 +8,10 @@ source .env;
 #- ===========================
 source ./app/utils.sh;
 
+#- Import Tools Functions
+#- ===========================
+source ./app/tools.sh;
+
 #- Import Helpers
 #- ============================
 for Helper in $HELPERS; do source $Helper; done

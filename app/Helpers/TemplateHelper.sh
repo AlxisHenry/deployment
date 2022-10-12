@@ -24,7 +24,7 @@ AppSelectionTemplate ()
     app_type=$1;
     app=("$app_name","$app_type");
     case $application in
-      [1-${#arr[@]}]*) echo -n -e "\nSelected application : $app_name. Please wait"; PrintDots; ManageApp $app; break;;
+      [1-${#arr[@]}]*) echo -n -e "\nSelected application : \033[0;96m$app_name\033[0m. Please wait"; PrintDots; ManageApp $app; break;;
       *) echo -e "\n\033[1;31mOperation Canceled. The program will stop...\033[0m\n"; sleep 1; ExitProgram; break;;
     esac
   done

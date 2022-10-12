@@ -7,12 +7,12 @@ configuration () {
 	echo -e "\n[\e[0;32m Configure your .env file \e[0m]\n"
 
 	# SET DIST SERVER IP ADDRESS
-    echo -e "  Database name [\e[0;33mnull\e[0m]";
+    echo -e "  Remote server ip address [\e[0;33mnull\e[0m]";
     printf '> ';
     read DIST_SERVER_IP;
         
 	# SET DIST SERVER USER
-    echo -e "\n  Username [\e[0;33mnull\e[0m]";
+    echo -e "\n  Remote server user [\e[0;33mnull\e[0m]";
     printf '> ';
     read DIST_SERVER_USER;
 

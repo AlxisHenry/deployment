@@ -12,6 +12,17 @@ git@github.com:AlxisHenry/deployment.git automated-deployment
 cd automated-deployment
 ```
 
+### **Créer le fichier `.env`**
+
+```bash
+cp .env.example .env
+```
+
+### **Configurer le fichier `.env`**
+
+```bash
+bash config/.env.sh
+```
 ### **Lancer le script de mise en place du projet**
 
 ```bash

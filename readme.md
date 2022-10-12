@@ -3,13 +3,13 @@
 ### **Cloner le projet**
 
 ```
-git@github.com:AlxisHenry/manage-my-projects.git
+git@github.com:AlxisHenry/deployment.git automated-deployment
 ```
 
 ### **Se rendre dans le dossier du projet**
 
 ```bash
-cd manage-my-projects
+cd automated-deployment
 ```
 
 ### **Lancer le script de mise en place du projet**

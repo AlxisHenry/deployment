@@ -31,7 +31,8 @@ PrintDots ()
 # @return {void}
 ResetDistAppFolder ()
 {
-  rm -rf $PATH_TO_DIST/* ;
+  rm -rf $PATH_TO_DIST/*;
+  echo -e "*\n!.gitignore\n!.readme.md" > $PATH_TO_DIST/.gitignore;
 }
 
 # Remove current app from dist folder
@@ -40,7 +41,6 @@ ResetDistAppFolder ()
 # @return {void}
 RemoveAppFromDistFolder ()
 {
-  echo "removed"; 
   rm -rf $PATH_TO_DIST/$app_name;
 }
 

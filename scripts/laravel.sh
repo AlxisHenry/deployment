@@ -72,4 +72,4 @@ main () {
 	clean;
 }
 
-cd $PATH_TO_DIST/$CURRENT_APP && main;
+cd $PATH_TO_DIST/$CURRENT_APP_NAME && main > /dev/null 2>&1;

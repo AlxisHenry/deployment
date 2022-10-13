@@ -23,7 +23,6 @@ Applications ()
 ManageApp ()
 {
 	if [ "$app_type" == "--l" ]; then
-
 		#- RECOVERY
 		echo -e "\n\033[0;36m${app_name^^}\033[0m - RECOVERY";
 		CreateAppDistFolder $app_name;
@@ -33,10 +32,9 @@ ManageApp ()
 		done
 		sleep 1;
 		echo -e "\n\033[0;32mRecovery completed successfully.\033[0m";
-
 		# - CONFIGURATION
 		echo -e "\n\033[0;36m${app_name^^}\033[0m - CONFIGURATION";
-		CheckIfAppIsSpecific $app_name;
+		CheckIfAppIsSpecific;
 		sleep 1;
 		echo -e "\n\033[0;32mConfiguration completed successfully.\033[0m";
 		echo -e "\n\033[0;36m${app_name^^}\033[0m - READY TO BE DEPLOYED\n";

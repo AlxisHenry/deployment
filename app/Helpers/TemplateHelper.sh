@@ -26,7 +26,7 @@ AppSelectionTemplate ()
       app=("$app_name","$app_type");
     elif [ "$1" == "--r" ]; then
       remote_app_name=$(echo $applications | cut -d ' ' -f $application 2>/dev/null);
-      local_app_name="$CURRENT_APP"
+      local_app_name="$CURRENT_APP_NAME"
       app_name=$remote_app_name;
       app=("$remote_app_name","$local_app_name","$app_type");
     fi

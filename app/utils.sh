@@ -66,7 +66,7 @@ FunctionStarter ()
 # @return {void}
 ExitProgram ()
 {
-  echo -e "\n\033[1;31mOperation Canceled. The program will stop...\033[0m\n"; 
+  echo -e "\n\033[1;31mOperation canceled. The program will stop...\033[0m\n"; 
   sleep 1;
 	exit;
 }

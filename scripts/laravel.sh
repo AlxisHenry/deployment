@@ -53,9 +53,9 @@ clean () {
 		rm -f $file;
 	done
 	# Scripts
-	scripts="sh gitignore md bat";
-	for script in $scripts; do
-		find -iname "*.$script" -not -path "./vendor/*" -delete
+	extensions="sh gitignore md bat";
+	for extension in $extensions; do
+		find -iname "*.$extension" -not -path "./vendor/*" -delete
 	done
 }
 

@@ -7,26 +7,29 @@
 # @return {void}
 CheckIfAppIsSpecific ()
 {
-	#- Check if the application is a specific application
-	if [ "$" == "laravel" ]; then
-		a="abc";
-	fi
+	ConfigureLaravelApplication;
 }
 
 # Laravel configuration
 # -------------
-# @param {string} app_name
 # @return {void}
 ConfigureLaravelApplication ()
 {
-	a="abc";
+	bash scripts/laravel.sh > /dev/null 2>&1;
 }
 
 # Symfony configuration
 # -------------
-# @param {string} app_name
 # @return {void}
 ConfigureSymfonyApplication ()
 {
-	a="abc";
+	bash scripts/symfony.sh > /dev/null 2>&1;
+}
+
+# Symfony configuration
+# -------------
+# @return {void}
+ConfigureBasicApplication ()
+{
+	bash scripts/base.sh > /dev/null 2>&1;
 }

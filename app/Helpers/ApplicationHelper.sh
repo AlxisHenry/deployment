@@ -8,10 +8,10 @@
 Applications ()
 {	
 	if [ "$1" == "--l" ]; then
-		applications=$(ls $LOCAL_ROOT_FOLDER);
+		applications=$(ls $PATH_TO_ROOT);
 		AppSelectionTemplate --l $applications;
     elif [ "$1" == "--r" ]; then
-		applications=$(ssh $DIST_SERVER_USER@$DIST_SERVER_IP "ls $DIST_ROOT_FOLDER");
+		applications=$(ssh $REMOTE_SERVER_USER@$REMOTE_SERVER_IP "ls $REMOTE_PATH_TO_ROOT");
 		AppSelectionTemplate --r $applications;
     fi
 }
@@ -26,17 +26,17 @@ ManageApp ()
 
 		#- RECOVERY
 		echo -e "\n\033[0;36m${app_name^^}\033[0m - RECOVERY";
-		CreateAppDistFolder $local_app_name;
-		elements=$(ls -A $LOCAL_ROOT_FOLDER/$local_app_name | grep -v -E '(.env|node_modules|.git|vendor|docs|*.sh|docker-compose.yml|*.md)')
+		CreateAppDistFolder $app_name;
+		elements=$(ls -A $PATH_TO_ROOT/$app_name | grep -v -E '(.env|node_modules|.git|vendor|docs|*.sh|docker-compose.yml|*.md)')
 		for el in $elements; do
-			cp -r $LOCAL_ROOT_FOLDER/$local_app_name/$el $LOCAL_DIST_FOLDER/$local_app_name
+			cp -r $PATH_TO_ROOT/$app_name/$el $PATH_TO_DIST/$app_name
 		done
 		sleep 1;
 		echo -e "\n\033[0;32mRecovery completed successfully.\033[0m";
 
 		# - CONFIGURATION
 		echo -e "\n\033[0;36m${app_name^^}\033[0m - CONFIGURATION";
-		CheckIfAppIsSpecific $local_app_name;
+		CheckIfAppIsSpecific $app_name;
 		sleep 1;
 		echo -e "\n\033[0;32mConfiguration completed successfully.\033[0m";
 		echo -e "\n\033[0;36m${app_name^^}\033[0m - READY TO BE DEPLOYED\n";

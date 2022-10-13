@@ -20,16 +20,14 @@ AppSelectionTemplate ()
     fi
     GenereteAppChoices $applications;
     echo -n -e "\nApplication (\033[0;33m1-${#arr[@]}\033[0m) [\033[0;33m:q\033[0m]: "; read application;
+    app_type=$1;
     if [ "$1" == "--l" ]; then
-      local_app_name=$(echo $applications | cut -d ' ' -f $application 2>/dev/null);
-      app_name=$local_app_name;
-      app_type=$1;
-      app=("$local_app_name","$app_type");
+      app_name=$(echo $applications | cut -d ' ' -f $application 2>/dev/null);
+      app=("$app_name","$app_type");
     elif [ "$1" == "--r" ]; then
       remote_app_name=$(echo $applications | cut -d ' ' -f $application 2>/dev/null);
+      local_app_name="$CURRENT_APP"
       app_name=$remote_app_name;
-      local_app_name=$(ls $LOCAL_DIST_FOLDER | grep -v -E '(.gitignore|readme.md)')
-      app_type=$1;      
       app=("$remote_app_name","$local_app_name","$app_type");
     fi
     case $application in
@@ -65,7 +63,7 @@ LocalAppTemplate ()
   echo -e "
 DEPLOYABLE APPLICATIONS
 
-Applications found in \033[1;35m$LOCAL_ROOT_FOLDER\033[0m
+Applications found in \033[1;35m$PATH_TO_ROOT\033[0m
 "; 
 }
 
@@ -77,6 +75,6 @@ RemoteAppTemplate ()
   echo -e "
 TARGETS AVAIALBLE FOR DEPLOYMENT
 
-Remote applications found in \033[1;35m$DIST_SERVER_USER@$DIST_SERVER_IP:$DIST_ROOT_FOLDER\033[0m
+Remote applications found in \033[1;35m$REMOTE_SERVER_USER@$REMOTE_SERVER_IP:$REMOTE_PATH_TO_ROOT\033[0m
 ";  
 }

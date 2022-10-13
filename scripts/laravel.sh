@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #- This script will prepare code in dist folder for laravel project
 #- ================================================================
 
@@ -70,4 +72,4 @@ main () {
 	clean;
 }
 
-cd $LOCAL_DIST_FOLDER/$(ls $LOCAL_DIST_FOLDER | grep -v -E '(.gitignore|readme.md)') && main;
+cd $PATH_TO_DIST/$CURRENT_APP && main;

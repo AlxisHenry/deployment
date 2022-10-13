@@ -31,7 +31,7 @@ PrintDots ()
 # @return {void}
 ResetDistAppFolder ()
 {
-  rm -rf $LOCAL_DIST_FOLDER/* ;
+  rm -rf $PATH_TO_DIST/* ;
 }
 
 # Remove current app from dist folder
@@ -41,7 +41,7 @@ ResetDistAppFolder ()
 RemoveAppFromDistFolder ()
 {
   echo "removed"; 
-  rm -rf $LOCAL_DIST_FOLDER/$app_name;
+  rm -rf $PATH_TO_DIST/$app_name;
 }
 
 # Create a folder for the app
@@ -50,7 +50,7 @@ RemoveAppFromDistFolder ()
 # @return {void}
 CreateAppDistFolder ()
 {
-  mkdir -p $LOCAL_DIST_FOLDER/$app_name;
+  mkdir -p $PATH_TO_DIST/$app_name;
 }
 
 # Starter for functions

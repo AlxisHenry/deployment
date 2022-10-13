@@ -4,21 +4,31 @@ configuration () {
 
 	clear;
 
-	echo -e "\n[\e[0;32m Configure your .env file \e[0m]\n"
+	echo -e "\n[\e[0;32m Environment variables configuration \e[0m]\n"
 
-	# SET DIST SERVER IP ADDRESS
-    echo -e "  Remote server ip address [\e[0;33mnull\e[0m]";
+	# SET REMOTE SERVER IP ADDRESS
+    echo -e "  Remote server ip \e[0;33mnull\e[0m]";
     printf '> ';
-    read DIST_SERVER_IP;
+    read REMOTE_SERVER_IP;
         
-	# SET DIST SERVER USER
+	# SET REMOTE SERVER USER
     echo -e "\n  Remote server user [\e[0;33mnull\e[0m]";
     printf '> ';
-    read DIST_SERVER_USER;
+    read REMOTE_SERVER_USER;
+        
+	# SET REMOTE PATH TO APPS FOLDER
+    echo -e "\n  Path to applications folder [REMOTE] [\e[0;33mnull\e[0m]";
+    printf '> ';
+    read REMOTE_PATH_TO_ROOT;
+            
+	# SET LOCAL PATH TO APPS FOLDER
+    echo -e "\n  Path to applications folder [LOCAL] [\e[0;33mnull\e[0m]";
+    printf '> ';
+    read PATH_TO_ROOT;
 
 	echo -e "";
 
-	ENV="DIST_SERVER_IP DIST_SERVER_USER";
+	ENV="REMOTE_SERVER_IP REMOTE_SERVER_USER REMOTE_PATH_TO_ROOT PATH_TO_ROOT";
 
     # SED .ENV FILE
     for VAR in ${ENV}; do

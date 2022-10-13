@@ -70,3 +70,12 @@ ExitProgram ()
   sleep 1;
 	exit;
 }
+
+# Do a break
+# ----------
+# @return {string} PressAnyKeyToContinue
+PressAnyKeyToContinue ()
+{
+  read -n 1 -s -r -p "Press any key to continue";
+  echo -e "\n";
+}

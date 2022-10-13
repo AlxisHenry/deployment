@@ -7,6 +7,7 @@
 # @return {void}
 CheckIfAppIsSpecific ()
 {
+	# todo : Check if its a laravel app
 	ConfigureLaravelApplication;
 }
 

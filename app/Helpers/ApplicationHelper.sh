@@ -18,7 +18,7 @@ Applications ()
 
 # Manage application
 # ------------------
-# @param {Array<?string>} $app
+# @param {Array<string>} $app
 # @return {void}
 ManageApp ()
 {
@@ -40,15 +40,7 @@ ManageApp ()
 		sleep 1;
 		echo -e "\n\033[0;32mConfiguration completed successfully.\033[0m";
 		echo -e "\n\033[0;36m${app_name^^}\033[0m - READY TO BE DEPLOYED\n";
-		#- Press any key to continue the program
-		while true; do
-			echo -n -e "Press any key to continue (\033[0;33m*/:q\033[0m) [\033[0;33mcontinue\033[0m]: "; read m;
-			case $m in
-				:q) ExitProgram; break;;
-				 *) break;;
-			esac
-		done
-
+		PressAnyKeyToContinue;
     elif [ "$app_type" == "--r" ]; then
 
 		# DEPLOYMENT
@@ -64,6 +56,6 @@ ManageApp ()
 		echo -e "\n\033[0;32mDeployment completed successfully.\033[0m";
 		sleep 1;
 		echo -e "\n\033[0;36m${local_app_name^^}\033[0m - DEPLOYED\n";
-
+		PressAnyKeyToContinue;
 	fi
 }

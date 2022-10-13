@@ -1,1 +1,0 @@
-Le projet a envoyé est tout d'abord copié dans le dossier `dist`.

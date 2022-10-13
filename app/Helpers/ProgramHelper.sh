@@ -6,8 +6,7 @@
 # @return {void}
 ProgramStarter ()
 {
-  #- Delete project from dist folder if exists
-  rm -rf $LOCAL_DIST_FOLDER/$(ls dist/ | grep -v -E '(.gitignore|readme.md)');
+  ResetDistAppFolder;
   Applications --l;
   Applications --r;
 }

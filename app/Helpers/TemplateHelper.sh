@@ -20,12 +20,21 @@ AppSelectionTemplate ()
     fi
     GenereteAppChoices $applications;
     echo -n -e "\nChoose the desired application (:q for cancel) [\033[0;33m:q\033[0m]: "; read application;
-    app_name="$(echo $applications | cut -d ' ' -f $application)";
-    app_type=$1;
-    app=("$app_name","$app_type");
+    if [ "$1" == "--l" ]; then
+      local_app_name=$(echo $applications | cut -d ' ' -f $application 2>/dev/null);
+      app_name=$local_app_name;
+      app_type=$1;
+      app=("$local_app_name","$app_type");
+    elif [ "$1" == "--r" ]; then
+      remote_app_name=$(echo $applications | cut -d ' ' -f $application 2>/dev/null);
+      app_name=$remote_app_name;
+      local_app_name=$(ls $LOCAL_DIST_FOLDER | grep -v -E '(.gitignore|readme.md)')
+      app_type=$1;      
+      app=("$remote_app_name","$local_app_name","$app_type");
+    fi
     case $application in
-      [1-${#arr[@]}]*) echo -n -e "\nSelected application : \033[0;96m$app_name\033[0m. Please wait"; PrintDots; ManageApp $app; break;;
-      *) echo -e "\n\033[1;31mOperation Canceled. The program will stop...\033[0m\n"; sleep 1; ExitProgram; break;;
+      [1-${#arr[@]}]) echo -n -e "\nSelected application: \033[0;96m$app_name\033[0m. Please wait"; PrintDots; ManageApp $app; break;;
+      ":q") ExitProgram; break;;  
     esac
   done
 }

@@ -9,7 +9,7 @@ CheckIfAppIsSpecific ()
 {
 	#- Check if the application is a specific application
 	if [ "$" == "laravel" ]; then
-
+		a="abc";
 	fi
 }
 

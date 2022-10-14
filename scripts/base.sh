@@ -17,7 +17,7 @@ clean () {
 		rm -f $file;
 	done
 	# Scripts
-	extensions="sh gitignore md bat";
+	extensions="sh gitignore md bat env";
 	for extension in $extensions; do
 		find -iname "*.$extension" -not -path "./vendor/*" -delete
 	done

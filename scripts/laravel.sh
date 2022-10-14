@@ -21,10 +21,22 @@ dependencies () {
     fi
 }
 
-# Laravel specific setup
-# ----------------------
+# Laravel configuration 
+# ---------------------
 # @return {void}
-laravel () {
+configuration () {
+	# Generate app key
+	key=$(php artisan key:generate --show);
+	sed -i "s/APP_KEY=.*/APP_KEY=$key/g" .env.example;
+	# Configure environment
+	sed -i "s/APP_ENV=.*/APP_ENV=production/g" .env.example;
+	sed -i "s/APP_DEBUG=.*/APP_DEBUG=false/g" .env.example;
+}
+
+# Laravel clear storage 
+# ---------------------
+# @return {void}
+storage () {
 	# Clearing cached files
 	php artisan optimize:clear;
 	# Delete session files
@@ -55,7 +67,7 @@ clean () {
 		rm -f $file;
 	done
 	# Scripts
-	extensions="sh gitignore md bat";
+	extensions="sh gitignore md bat env";
 	for extension in $extensions; do
 		find -iname "*.$extension" -not -path "./vendor/*" -delete
 	done
@@ -66,7 +78,8 @@ clean () {
 # @return {void}
 main () {
 	dependencies --development;
-	laravel;
+	configuration;
+	storage;
 	build;
 	dependencies --production;
 	clean;

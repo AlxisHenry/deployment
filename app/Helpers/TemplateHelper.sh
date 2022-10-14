@@ -13,18 +13,18 @@ AppSelectionTemplate ()
   while true; do
     clear;
     AppStarterTemplate;
-    if [ "$1" == "--l" ]; then
+    if [ "$1" == "--local" ]; then
       LocalAppTemplate;
-    elif [ "$1" == "--r" ]; then
+    elif [ "$1" == "--remote" ]; then
       RemoteAppTemplate;   
     fi
     GenereteAppChoices $applications;
     echo -n -e "\nApplication (\033[0;33m1-${#arr[@]}\033[0m) [\033[0;33m:q\033[0m]: "; read application;
     app_type=$1;
-    if [ "$1" == "--l" ]; then
+    if [ "$1" == "--local" ]; then
       app_name=$(echo $applications | cut -d ' ' -f $application 2>/dev/null);
       app=("$app_name","$app_type");
-    elif [ "$1" == "--r" ]; then
+    elif [ "$1" == "--remote" ]; then
       remote_app_name=$(echo $applications | cut -d ' ' -f $application 2>/dev/null);
       local_app_name="$CURRENT_APP_NAME"
       app_name=$remote_app_name;

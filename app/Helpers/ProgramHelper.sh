@@ -7,6 +7,6 @@
 ProgramStarter ()
 {
   ResetDistAppFolder;
-  Applications --l;
-  Applications --r;
+  Applications --local;
+  Applications --remote;
 }

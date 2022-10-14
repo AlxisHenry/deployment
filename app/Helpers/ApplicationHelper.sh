@@ -7,12 +7,12 @@
 # @return {void}
 Applications ()
 {	
-	if [ "$1" == "--l" ]; then
+	if [ "$1" == "--local" ]; then
 		applications=$(ls $PATH_TO_ROOT);
-		AppSelectionTemplate --l $applications;
-    elif [ "$1" == "--r" ]; then
+		AppSelectionTemplate --local $applications;
+    elif [ "$1" == "--remote" ]; then
 		applications=$(ssh $REMOTE_SERVER_USER@$REMOTE_SERVER_IP "ls $REMOTE_PATH_TO_ROOT");
-		AppSelectionTemplate --r $applications;
+		AppSelectionTemplate --remote $applications;
     fi
 }
 
@@ -22,7 +22,7 @@ Applications ()
 # @return {void}
 ManageApp ()
 {
-	if [ "$app_type" == "--l" ]; then
+	if [ "$app_type" == "--local" ]; then
 		#- RECOVERY
 		echo -e "\n\033[0;36m${app_name^^}\033[0m - RECOVERY";
 		CreateAppDistFolder $app_name;
@@ -39,8 +39,7 @@ ManageApp ()
 		echo -e "\n\033[0;32mConfiguration completed successfully.\033[0m";
 		echo -e "\n\033[0;36m${app_name^^}\033[0m - READY TO BE DEPLOYED\n";
 		PressAnyKeyToContinue;
-    elif [ "$app_type" == "--r" ]; then
-
+    elif [ "$app_type" == "--remote" ]; then
 		# DEPLOYMENT
 	    while true; do
 			echo -n -e "\nDo you want to deploy the application ? (y/n) [\033[0;33my\033[0m]: "; read m;
@@ -50,6 +49,13 @@ ManageApp ()
 			esac
 		done
 		echo -e "\n\033[0;36m${local_app_name^^}\033[0m - DEPLOYMENT";
+		CheckRemoteRights $remote_app_name;
+		SendAppToRemote $remote_app_name > /dev/null 2>&1;
+		if [ -f "$PATH_TO_DIST/$CURRENT_APP_NAME/artisan" ]; then
+			ChangeRemoteFolderOwner $remote_app_name --apache --laravel
+		else 
+			ChangeRemoteFolderOwner $remote_app_name --apache
+		fi
 		sleep 1;
 		echo -e "\n\033[0;32mDeployment completed successfully.\033[0m";
 		sleep 1;

@@ -79,3 +79,13 @@ PressAnyKeyToContinue ()
   read -n 1 -s -r -p "Press any key to continue";
   echo -e "\n";
 }
+
+# Do a break
+# ----------
+# @return {string} UserDoesntHaveAccess
+UserDoesntHaveAccess ()
+{ 
+  echo -e "\n\033[0;31mYou don't have the right to write in the remote folder.\033[0m";
+	echo -e "\n\033[0;31mPlease give the remote rights to $REMOTE_SERVER_USER and retry.\033[0m";
+	ExitProgram;
+}

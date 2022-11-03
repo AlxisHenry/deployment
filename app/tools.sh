@@ -49,17 +49,17 @@ ConfigureBasicApplication ()
 # @return {?bool}
 ChangeRemoteFolderOwner ()
 {
-	if [ $2 == "--deploy" ]; then
+	if [[ "$2" == "--deploy" ]]; then
 		#- Give access to the remote user on the remote app folder
-		ssh $REMOTE_SERVER_USER@$REMOTE_SERVER_IP "sudo chown -R $REMOTE_SERVER_USER:$REMOTE_SERVER_USER $REMOTE_PATH_TO_ROOT/$remote_app_name";
-	elif [ $2 == "--apache" ]; then
-		if [ $3 == "--laravel" ]; then
+		ssh $REMOTE_SERVER_USER@$REMOTE_SERVER_IP "sudo -S chown -R $REMOTE_SERVER_USER:$REMOTE_SERVER_USER $REMOTE_PATH_TO_ROOT/$remote_app_name";
+	elif [[ "$2" == "--apache" ]]; then
+		if [[ "$3" == "--laravel" ]]; then
 			#- Specific laravel rights
-			ssh $REMOTE_SERVER_USER@$REMOTE_SERVER_IP "sudo chown -R www-data:www-data $REMOTE_PATH_TO_ROOT/$remote_app_name/public $REMOTE_PATH_TO_ROOT/$remote_app_name/storage $REMOTE_PATH_TO_ROOT/$remote_app_name/bootstrap";
+			ssh $REMOTE_SERVER_USER@$REMOTE_SERVER_IP "sudo -S chown -R www-data:www-data $REMOTE_PATH_TO_ROOT/$remote_app_name/public $REMOTE_PATH_TO_ROOT/$remote_app_name/storage $REMOTE_PATH_TO_ROOT/$remote_app_name/bootstrap";
 			return 0;
 		fi
 		#-
-		ssh $REMOTE_SERVER_USER@$REMOTE_SERVER_IP "sudo chown -R www-data:www-data $REMOTE_PATH_TO_ROOT/$remote_app_name";
+		ssh $REMOTE_SERVER_USER@$REMOTE_SERVER_IP "sudo -S chown -R www-data:www-data $REMOTE_PATH_TO_ROOT/$remote_app_name";
 	fi
 
 }

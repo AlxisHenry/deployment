@@ -22,7 +22,7 @@ ConfigureLaravelApplication ()
 	sleep 1;
 	echo -e "\n- We noticed \033[0;36m${CURRENT_APP_NAME^^}\033[0m is built with Laravel.";
 	echo -e "- We will configure it for \033[0;36myou\033[0m.";
-	bash scripts/laravel.sh ;
+	bash $(dirname "$0")/scripts/laravel.sh ;
 }
 
 # Symfony configuration
@@ -30,7 +30,7 @@ ConfigureLaravelApplication ()
 # @return {void}
 ConfigureSymfonyApplication ()
 {
-	bash scripts/symfony.sh > /dev/null 2>&1;
+	bash $(dirname "$0")/scripts/symfony.sh > /dev/null 2>&1;
 }
 
 # Symfony configuration
@@ -38,7 +38,7 @@ ConfigureSymfonyApplication ()
 # @return {void}
 ConfigureBasicApplication ()
 {
-	bash scripts/base.sh > /dev/null 2>&1;
+	bash $(dirname "$0")/scripts/base.sh > /dev/null 2>&1;
 }
 
 # Change owner of remote app folder

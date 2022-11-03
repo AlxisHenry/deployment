@@ -5,7 +5,7 @@
 
 #- Import environment variables
 #- ============================
-source .env;
+source $(dirname "$0")/.env;
 
 # Install dependencies
 # --------------------
@@ -45,6 +45,20 @@ storage () {
 	rm -f storage/logs/laravel.log;
 }
 
+# Laravel Optimization
+#
+# https://laravel.com/docs/9.x/deployment#optimization
+# ----------------------------------------------------
+# @return {void}
+optimization () {
+	# Optimizing Configuration Loading
+	php artisan config:cache
+	# Optimizing Route Loading
+	php artisan route:cache
+	# Optimizing View Loading
+	php artisan view:cache
+}
+
 # Build assets
 # -------------
 # @return {void}
@@ -80,6 +94,7 @@ main () {
 	dependencies --development;
 	configuration;
 	storage;
+	optimization;
 	build;
 	dependencies --production;
 	clean;

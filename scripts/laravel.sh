@@ -5,7 +5,7 @@
 
 #- Import environment variables
 #- ============================
-source $(dirname "$0")/.env;
+source $(dirname "$0")/p.env;
 
 # Install dependencies
 # --------------------

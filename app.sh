@@ -2,15 +2,15 @@
 
 #- Import environment variables
 #- ============================
-source .env;
+source $(dirname "$0")/.env;
 
 #- Import Utils Functions
 #- ===========================
-source ./app/utils.sh;
+source $(dirname "$0")/app/utils.sh;
 
 #- Import Tools Functions
 #- ===========================
-source ./app/tools.sh;
+source $(dirname "$0")/app/tools.sh;
 
 #- Import Helpers
 #- ============================

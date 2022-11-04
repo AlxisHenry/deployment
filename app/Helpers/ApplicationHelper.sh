@@ -26,7 +26,7 @@ ManageApp ()
 		#- RECOVERY
 		echo -e "\n\033[0;36m${app_name^^}\033[0m - RECOVERY";
 		CreateAppDistFolder $app_name;
-		elements=$(ls -A $PATH_TO_ROOT/$app_name | grep -v -E '(node_modules|.git|vendor|docs|*.sh|docker-compose.yml|*.md)')
+		elements=$(ls -A $PATH_TO_ROOT/$app_name | grep -v -E '(.git|docs|*.sh|docker-compose.yml|*.md)')
 		for el in $elements; do
 			cp -r $PATH_TO_ROOT/$app_name/$el $PATH_TO_DIST/$app_name
 		done

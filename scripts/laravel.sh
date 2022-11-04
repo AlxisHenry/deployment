@@ -12,8 +12,8 @@ source $(dirname "$0")/p.env;
 # @param {string} $1
 # @return {void}
 dependencies () {
+	rm -rf vendor/ node_modules/;
 	if [ "$1" == "--production" ]; then
-		rm -rf vendor/ node_modules/;
 		composer install --no-dev --optimize-autoloader && npm install --omit=dev;
     elif [ "$1" == "--development" ]; then
 		#- All dependencies are needed for build process

@@ -30,9 +30,12 @@ AppSelectionTemplate ()
       app_name=$remote_app_name;
       app=("$remote_app_name","$local_app_name","$app_type");
     fi
-    case $application in
-      [1-${#arr[@]}]) echo -n -e "\nSelected application: \033[0;36m$app_name\033[0m. Please wait"; PrintDots; ManageApp $app; break;;
-      ":q") ExitProgram; break;;  
+    if [[ ${application} == ":q" ]];
+    then
+      ExitProgram;
+    fi
+    case 1 in
+      $(($application > 0 && $application <= ${#arr[@]}))) echo -n -e "\nSelected application: \033[0;36m$app_name\033[0m. Please wait"; PrintDots; ManageApp $app; break;;
     esac
   done
 }

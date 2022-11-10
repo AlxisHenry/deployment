@@ -43,6 +43,8 @@ storage () {
 	rm -f storage/framework/sessions/*;
 	# Clear logs
 	rm -f storage/logs/laravel.log;
+	# Link storage to public folder
+	php artisan storage:link;
 }
 
 # Laravel Optimization

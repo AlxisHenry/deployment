@@ -76,7 +76,7 @@ clean () {
 		rm -rf $folder;
 	done
 	# Files
-	files=".editorconfig postcss.config.js tailwind.config.js vite.config.js package.json package-lock.json webpack.mix.js composer.lock";
+	files=".editorconfig postcss.config.js tailwind.config.js vite.config.js package.json package-lock.json webpack.mix.js composer.lock phpstan.neon phpstan .phpunit.result.cache";
 	for file in $files; do
 		rm -f $file;
 	done

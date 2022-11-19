@@ -96,5 +96,5 @@ CheckRemoteRights ()
 # @return {void}
 SendAppToRemote ()
 {
-	rsync -azP --delete-after --exclude-from $RSYNC_IGNORE -e 'ssh' $PATH_TO_DIST/$CURRENT_APP_NAME/ $REMOTE_SERVER_USER@$REMOTE_SERVER_IP:$REMOTE_PATH_TO_ROOT/$remote_app_name;
+	rsync -azP --exclude-from $RSYNC_IGNORE -e 'ssh' $PATH_TO_DIST/$CURRENT_APP_NAME/ $REMOTE_SERVER_USER@$REMOTE_SERVER_IP:$REMOTE_PATH_TO_ROOT/$remote_app_name;
 }

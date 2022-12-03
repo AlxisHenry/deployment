@@ -52,6 +52,7 @@ ManageApp ()
 		CheckRemoteRights $remote_app_name;
 		SendAppToRemote $remote_app_name > /dev/null 2>&1;
 		if [ -f "$PATH_TO_DIST/$CURRENT_APP_NAME/artisan" ]; then
+			LinkRemoteStorageToPublicFolder $remote_app_name;
 			ChangeRemoteFolderOwner $remote_app_name --apache --laravel
 		else 
 			ChangeRemoteFolderOwner $remote_app_name --apache

@@ -98,3 +98,12 @@ SendAppToRemote ()
 {
 	rsync -azP --exclude-from $RSYNC_IGNORE -e 'ssh' $PATH_TO_DIST/$CURRENT_APP_NAME/ $REMOTE_SERVER_USER@$REMOTE_SERVER_IP:$REMOTE_PATH_TO_ROOT/$remote_app_name;
 }
+
+# Link remote storage folder to public
+# ------------------------------------
+# @param {string} $remote_app_name
+# @return {void}
+LinkRemoteStorageToPublicFolder ()
+{
+	ssh $REMOTE_SERVER_USER@$REMOTE_SERVER_IP "cd /var/www/cciappro.alexishenry.eu; php artisan storage:link;"
+}

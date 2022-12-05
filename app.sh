@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#- Check for update
+#- ============================
+git pull origin master;
+
 #- Import environment variables
 #- ============================
 source $(dirname "$0")/.env;

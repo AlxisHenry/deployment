@@ -55,7 +55,10 @@ ChangeRemoteFolderOwner ()
 	elif [[ "$2" == "--apache" ]]; then
 		if [[ "$3" == "--laravel" ]]; then
 			#- Specific laravel rights
-			ssh $REMOTE_SERVER_USER@$REMOTE_SERVER_IP "sudo -S chown -R www-data:www-data $REMOTE_PATH_TO_ROOT/$remote_app_name/public $REMOTE_PATH_TO_ROOT/$remote_app_name/storage $REMOTE_PATH_TO_ROOT/$remote_app_name/bootstrap";
+			ssh $REMOTE_SERVER_USER@$REMOTE_SERVER_IP "sudo -S chown -R www-data:www-data $REMOTE_PATH_TO_ROOT/$remote_app_name/public $REMOTE_PATH_TO_ROOT/$remote_app_name/bootstrap";
+			#- Specific access to laravel log file (for example: queue worker use it)
+			ssh $REMOTE_SERVER_USER@$REMOTE_SERVER_IP "sudo -S chmod -R 775 $REMOTE_PATH_TO_ROOT/$remote_app_name/storage";
+			ssh $REMOTE_SERVER_USER@$REMOTE_SERVER_IP "sudo -S chown -R ubuntu:www-data $REMOTE_PATH_TO_ROOT/$remote_app_name/storage";
 			return 0;
 		fi
 		#-

@@ -9,8 +9,8 @@ CheckIfAppIsSpecific ()
 	CURRENT_APP_NAME=$(ls $PATH_TO_DIST | grep -v -E '(.gitignore|readme.md)');
 	if [ -f "$PATH_TO_DIST/$CURRENT_APP_NAME/artisan" ]; then
 		ConfigureLaravelApplication;
-	else
-		ConfigureBasicApplication;
+	elif [ -d "$PATH_TO_DIST/$CURRENT_APP_NAME/public/shared" ]; then
+		ConfigureCdnApplicaion;
 	fi
 }
 
@@ -39,6 +39,14 @@ ConfigureSymfonyApplication ()
 ConfigureBasicApplication ()
 {
 	bash $(dirname "$0")/scripts/base.sh > /dev/null 2>&1;
+}
+
+ConfigureCdnApplicaion ()
+{
+	sleep 1;
+	echo -e "\n- We noticed \033[0;36m${CURRENT_APP_NAME^^}\033[0m is built with https://github.com/Alxishenry/cdn.";
+	echo -e "- We will configure it for \033[0;36myou\033[0m.";
+	bash $(dirname "$0")/scripts/cdn.sh > /dev/null 2>&1;
 }
 
 # Change owner of remote app folder

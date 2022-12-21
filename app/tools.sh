@@ -11,6 +11,10 @@ CheckIfAppIsSpecific ()
 		ConfigureLaravelApplication;
 	elif [ -d "$PATH_TO_DIST/$CURRENT_APP_NAME/public/shared" ]; then
 		ConfigureCdnApplicaion;
+	elif [ -f "$PATH_TO_DIST/$CURRENT_APP_NAME/symfony.lock" ]; then
+		ConfigureSymfonyApplication;
+	else
+		ConfigureBasicApplication;
 	fi
 }
 
@@ -20,8 +24,8 @@ CheckIfAppIsSpecific ()
 ConfigureLaravelApplication ()
 {	
 	sleep 1;
-	echo -e "\n- We noticed \033[0;36m${CURRENT_APP_NAME^^}\033[0m is built with Laravel.";
-	echo -e "- We will configure it for \033[0;36myou\033[0m.";
+	details "We noticed \033[0;36m${CURRENT_APP_NAME^^}\033[0m is built with Laravel." true;
+	details "We will configure it for \033[0;36myou\033[0m.";
 	bash $(dirname "$0")/scripts/laravel.sh ;
 }
 
@@ -30,6 +34,8 @@ ConfigureLaravelApplication ()
 # @return {void}
 ConfigureSymfonyApplication ()
 {
+	details "We noticed \033[0;36m${CURRENT_APP_NAME^^}\033[0m is built with Symfony." true;
+	throw "This application is not yet fully supported by this tool.";
 	bash $(dirname "$0")/scripts/symfony.sh > /dev/null 2>&1;
 }
 
@@ -38,14 +44,17 @@ ConfigureSymfonyApplication ()
 # @return {void}
 ConfigureBasicApplication ()
 {
+	sleep 1;
+	warning "This configuration is basic and may not be suitable for your application." true;
+	sleep 2;
 	bash $(dirname "$0")/scripts/base.sh > /dev/null 2>&1;
 }
 
 ConfigureCdnApplicaion ()
 {
 	sleep 1;
-	echo -e "\n- We noticed \033[0;36m${CURRENT_APP_NAME^^}\033[0m is built with https://github.com/Alxishenry/cdn.";
-	echo -e "- We will configure it for \033[0;36myou\033[0m.";
+	details "We noticed \033[0;36m${CURRENT_APP_NAME^^}\033[0m is built with https://github.com/Alxishenry/cdn." true;
+	details "We will configure it for \033[0;36myou\033[0m.";
 	bash $(dirname "$0")/scripts/cdn.sh > /dev/null 2>&1;
 }
 

@@ -66,9 +66,7 @@ FunctionStarter ()
 # @return {void}
 ExitProgram ()
 {
-  echo -e "\n\033[1;31mOperation canceled. The program will stop...\033[0m\n"; 
-  sleep 1;
-	exit;
+	throw "Operation canceled. The program will stop..."; 
 }
 
 # Do a break
@@ -85,7 +83,52 @@ PressAnyKeyToContinue ()
 # @return {string} UserDoesntHaveAccess
 UserDoesntHaveAccess ()
 { 
-  echo -e "\n\033[0;31mYou don't have the right to write in the remote folder.\033[0m";
-	echo -e "\n\033[0;31mPlease give the remote rights to $REMOTE_SERVER_USER and retry.\033[0m";
+  warning "You don't have the right to write in the remote folder." true;
+	warning "Please give the remote rights to $REMOTE_SERVER_USER and retry.";
 	ExitProgram;
+}
+
+function throw() {
+	echo -e "\n\033[0;31mError\033[0m: ${1}...\n";
+	exit 1;
+}
+
+function warning() {
+	if [[ -z ${1} ]]; then
+		throw "call to warn function but no message provided";
+	fi
+	if [[ "${2}" == "true" ]]; then
+		echo -e "";
+	fi
+	echo -e "\033[0;33mWarning\033[0m: ${1}";
+}
+
+function success () {
+	if [[ -z ${1} ]]; then
+		throw "call to success function but no message provided";
+	fi
+	if [[ "${2}" == "true" ]]; then
+		echo -e "";
+	fi
+	echo -e "\033[0;32mSuccess\033[0m: ${1}";
+}
+
+function details () {
+	if [[ -z ${1} ]]; then
+		throw "call to info function but no message provided";
+	fi
+	if [[ "${2}" == "true" ]]; then
+		echo -e "";
+	fi
+	echo -e "\033[0;94mDetails\033[0m: ${1}";
+}
+
+function debug () {
+	if [[ -z ${1} ]]; then
+		throw "call to debug function but no message provided";
+	fi
+	if [[ "${2}" == "true" ]]; then
+		echo -e "";
+	fi
+	echo -e "\033[0;91mDebug\033[0m: ${1}";
 }

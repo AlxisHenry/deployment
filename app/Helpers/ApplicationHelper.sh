@@ -31,12 +31,12 @@ ManageApp ()
 			cp -r $PATH_TO_ROOT/$app_name/$el $PATH_TO_DIST/$app_name
 		done
 		sleep 1;
-		echo -e "\n\033[0;32mRecovery completed successfully.\033[0m";
+		success "Recovery completed successfully." true;
 		# - CONFIGURATION
 		echo -e "\n\033[0;36m${app_name^^}\033[0m - CONFIGURATION";
 		CheckIfAppIsSpecific;
 		sleep 1;
-		echo -e "\n\033[0;32mConfiguration completed successfully.\033[0m";
+		success "Configuration completed successfully." true;
 		echo -e "\n\033[0;36m${app_name^^}\033[0m - READY TO BE DEPLOYED\n";
 		PressAnyKeyToContinue;
     elif [ "$app_type" == "--remote" ]; then
@@ -58,7 +58,7 @@ ManageApp ()
 			ChangeRemoteFolderOwner $remote_app_name --apache
 		fi
 		sleep 1;
-		echo -e "\n\033[0;32mDeployment completed successfully.\033[0m";
+		success "Deployment completed successfully." true;
 		sleep 1;
 		echo -e "\n\033[0;36m${local_app_name^^}\033[0m - DEPLOYED\n";
 		PressAnyKeyToContinue;

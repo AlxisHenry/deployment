@@ -34,6 +34,7 @@ AppSelectionTemplate ()
     then
       ExitProgram;
     fi
+    [ -z "${application//[0-9]}" ] && [ -n "${application}" ] || application=a;
     case 1 in
       $(($application > 0 && $application <= ${#arr[@]}))) echo -n -e "\nSelected application: \033[0;36m$app_name\033[0m. Please wait"; PrintDots; ManageApp $app; break;;
     esac

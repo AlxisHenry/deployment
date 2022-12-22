@@ -31,7 +31,7 @@ clean () {
 		rm -rf $folder;
 	done
 	# Files
-	files=".editorconfig Dockerfile composer.json composer.lock package.json package-lock.json";
+	files=".editorconfig Dockerfile composer.json composer.lock package.json package-lock.json settings.yml";
 	for file in $files; do
 		rm -f $file;
 	done

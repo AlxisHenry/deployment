@@ -50,6 +50,7 @@ ManageApp ()
 		done
 		echo -e "\n\033[0;36m${local_app_name^^}\033[0m - DEPLOYMENT";
 		CheckRemoteRights $remote_app_name;
+		CheckRemoteStorageFolder $remote_app_name;
 		SendAppToRemote $remote_app_name > /dev/null 2>&1;
 		if [ -f "$PATH_TO_DIST/$CURRENT_APP_NAME/artisan" ]; then
 			LinkRemoteStorageToPublicFolder $remote_app_name;

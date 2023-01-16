@@ -96,7 +96,7 @@ main () {
 	dependencies --development;
 	configuration;
 	storage;
-	optimization;
+	# optimization;
 	build;
 	dependencies --production;
 	clean;

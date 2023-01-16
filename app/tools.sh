@@ -9,11 +9,6 @@ CheckIfAppIsSpecific ()
 	CURRENT_APP_NAME=$(ls $PATH_TO_DIST | grep -v -E '(.gitignore|readme.md)');
 	if [ -f "$PATH_TO_DIST/$CURRENT_APP_NAME/artisan" ]; then
 		ConfigureLaravelApplication;
-		storage=$(ssh $REMOTE_SERVER_USER@$REMOTE_SERVER_IP "ls -ld $REMOTE_PATH_TO_ROOT/$remote_app_name/storage > /dev/null 2>&1");
-		if [[ $? -ne 2 ]]; then
-			details "Remote storage folder already exist. We remove the local folder.";
-			rm -rf $PATH_TO_DIST/$CURRENT_APP_NAME/storage;
-    fi
 	elif [ -d "$PATH_TO_DIST/$CURRENT_APP_NAME/public/shared" ]; then
 		ConfigureCdnApplicaion;
 	elif [ -f "$PATH_TO_DIST/$CURRENT_APP_NAME/symfony.lock" ]; then
@@ -104,11 +99,19 @@ CheckRemoteRights ()
 			return 0;
 		fi
 	done
-	#- Check if the user has the right to write in the remote folder
-	ssh $REMOTE_SERVER_USER@$REMOTE_SERVER_IP "touch $REMOTE_PATH_TO_ROOT/$remote_app_name/test.txt" > /dev/null 2>&1;
+	#- Check if we can set the rights to the user
+	ssh $REMOTE_SERVER_USER@$REMOTE_SERVER_IP "sudo chown -R ubuntu:ubuntu $REMOTE_PATH_TO_ROOT/$remote_app_name/" > /dev/null 2>&1;
+	ssh $REMOTE_SERVER_USER@$REMOTE_SERVER_IP "sudo chmod ug+rwx $REMOTE_PATH_TO_ROOT/$remote_app_name/" > /dev/null 2>&1;
 	if [ $? -eq 0 ]; then
-		ssh $REMOTE_SERVER_USER@$REMOTE_SERVER_IP "rm $REMOTE_PATH_TO_ROOT/$remote_app_name/test.txt";
-		return 0;
+		#- Check if the user has the right to write in the remote folder
+		ssh $REMOTE_SERVER_USER@$REMOTE_SERVER_IP "touch $REMOTE_PATH_TO_ROOT/$remote_app_name/test.txt" > /dev/null 2>&1;
+		if [ $? -eq 0 ]; then
+			ssh $REMOTE_SERVER_USER@$REMOTE_SERVER_IP "rm $REMOTE_PATH_TO_ROOT/$remote_app_name/test.txt";
+			return 0;
+		else
+			UserDoesntHaveAccess;
+			return 0;
+		fi
 	else
 		UserDoesntHaveAccess;
 		return 0;
@@ -131,4 +134,17 @@ SendAppToRemote ()
 LinkRemoteStorageToPublicFolder ()
 {
 	ssh $REMOTE_SERVER_USER@$REMOTE_SERVER_IP "cd $REMOTE_PATH_TO_ROOT/$remote_app_name; php artisan storage:link;"
+}
+
+# Check if remote storage folder exist
+# ------------------------------------
+# @param {string} $remote_app_name
+# @return {void}
+CheckRemoteStorageFolder ()
+{
+	ssh $REMOTE_SERVER_USER@$REMOTE_SERVER_IP "ls -ld $REMOTE_PATH_TO_ROOT/$remote_app_name/storage" > /dev/null 2>&1;
+	if [[ $? -ne 2 ]]; then
+		details "Remote storage folder already exist. We remove the local folder." true;
+		rm -rf $PATH_TO_DIST/$CURRENT_APP_NAME/storage;
+  fi
 }

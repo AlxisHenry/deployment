@@ -15,10 +15,10 @@ dependencies () {
 	rm -rf vendor/ node_modules/;
 	if [ "$1" == "--production" ]; then
 		composer install --no-dev --optimize-autoloader && npm install --omit=dev;
-    elif [ "$1" == "--development" ]; then
+  elif [ "$1" == "--development" ]; then
 		#- All dependencies are needed for build process
 		composer install && npm install;
-    fi
+  fi
 }
 
 # Laravel configuration 

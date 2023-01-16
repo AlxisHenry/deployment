@@ -9,6 +9,11 @@ CheckIfAppIsSpecific ()
 	CURRENT_APP_NAME=$(ls $PATH_TO_DIST | grep -v -E '(.gitignore|readme.md)');
 	if [ -f "$PATH_TO_DIST/$CURRENT_APP_NAME/artisan" ]; then
 		ConfigureLaravelApplication;
+		storage=$(ssh $REMOTE_SERVER_USER@$REMOTE_SERVER_IP "ls -ld $REMOTE_PATH_TO_ROOT/$remote_app_name/storage > /dev/null 2>&1");
+		if [[ $? -ne 2 ]]; then
+			details "Remote storage folder already exist. We remove the local folder.";
+			rm -rf $PATH_TO_DIST/$CURRENT_APP_NAME/storage;
+    fi
 	elif [ -d "$PATH_TO_DIST/$CURRENT_APP_NAME/public/shared" ]; then
 		ConfigureCdnApplicaion;
 	elif [ -f "$PATH_TO_DIST/$CURRENT_APP_NAME/symfony.lock" ]; then
@@ -72,10 +77,10 @@ ChangeRemoteFolderOwner ()
 	elif [[ "$2" == "--apache" ]]; then
 		if [[ "$3" == "--laravel" ]]; then
 			#- Specific laravel rights
-			ssh $REMOTE_SERVER_USER@$REMOTE_SERVER_IP "sudo -S chown -R www-data:www-data $REMOTE_PATH_TO_ROOT/$remote_app_name/public $REMOTE_PATH_TO_ROOT/$remote_app_name/bootstrap";
+			ssh $REMOTE_SERVER_USER@$REMOTE_SERVER_IP "sudo -S chmod -R ugo-w $REMOTE_PATH_TO_ROOT/$remote_app_name/.";
 			#- Specific access to laravel log file (for example: queue worker use it)
-			ssh $REMOTE_SERVER_USER@$REMOTE_SERVER_IP "sudo -S chmod -R 775 $REMOTE_PATH_TO_ROOT/$remote_app_name/storage";
 			ssh $REMOTE_SERVER_USER@$REMOTE_SERVER_IP "sudo -S chown -R ubuntu:www-data $REMOTE_PATH_TO_ROOT/$remote_app_name/storage";
+			ssh $REMOTE_SERVER_USER@$REMOTE_SERVER_IP "sudo -S chmod -R ug+w $REMOTE_PATH_TO_ROOT/$remote_app_name/storage";
 			return 0;
 		fi
 		#-
@@ -125,5 +130,5 @@ SendAppToRemote ()
 # @return {void}
 LinkRemoteStorageToPublicFolder ()
 {
-	ssh $REMOTE_SERVER_USER@$REMOTE_SERVER_IP "cd /var/www/cciappro.alexishenry.eu; php artisan storage:link;"
+	ssh $REMOTE_SERVER_USER@$REMOTE_SERVER_IP "cd $REMOTE_PATH_TO_ROOT/$remote_app_name; php artisan storage:link;"
 }
